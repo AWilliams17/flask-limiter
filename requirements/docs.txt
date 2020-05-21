@@ -1,3 +1,4 @@
 -r main.txt
+Pallets-Sphinx-Themes
 sphinx>3
 

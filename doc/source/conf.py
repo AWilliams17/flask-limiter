@@ -5,7 +5,6 @@ import sys
 import os
 
 sys.path.insert(0, os.path.abspath('../../'))
-sys.path.append(os.path.abspath('_themes'))
 import flask_limiter
 
 extensions = [
@@ -13,6 +12,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
+    'pallets_sphinx_themes'
 ]
 
 templates_path = ['_templates']
@@ -23,14 +23,12 @@ copyright = u'2014, Ali-Akber Saifee'
 
 version = release = flask_limiter.__version__
 exclude_patterns = []
-pygments_style = 'sphinx'
 html_theme_options = {
-    "index_logo": "logo.png"
 }
-html_theme_path = ["_themes"]
 html_theme = 'flask'
 html_static_path = ['_static']
 html_style = 'limiter.css'
+html_logo = '_static/logo.png'
 
 htmlhelp_basename = 'Flask-Ratelimitdoc'
 html_logo = '_static/tap-logo.png'

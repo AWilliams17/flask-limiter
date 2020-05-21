@@ -1,4 +1,4 @@
-@import url("flasky.css");
+@import url("flask.css");
 div.warning, div.attention{
     background-color: #ffedcc;
 }
