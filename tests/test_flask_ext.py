@@ -1,16 +1,29 @@
 """
 
 """
-import logging
-import time
-
 import hiro
+import logging
 import mock
+import time
 from flask import Flask, request
 from werkzeug.exceptions import BadRequest
 
 from flask_limiter.extension import C, Limiter, HEADERS
 from flask_limiter.util import get_remote_address
+
+
+def test_global_context_cleared(extension_factory):
+    app, limiter = extension_factory()
+
+    @app.route("/")
+    @limiter.limit("1/day")
+    def root():
+        return "42"
+
+    with app.app_context():
+        with app.test_client() as client:
+            assert client.get("/").status_code == 200
+            assert client.get("/").status_code == 429
 
 
 def test_reset(extension_factory):

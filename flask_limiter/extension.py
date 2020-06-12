@@ -305,7 +305,7 @@ class Limiter(object):
             if self._auto_check:
                 app.before_request(self.__check_request_limit)
             app.after_request(self.__inject_headers)
-
+            app.teardown_request(self.__teardown_request)
         app.extensions['limiter'] = self
 
     def __configure_fallbacks(self, app, strategy):
@@ -624,6 +624,15 @@ class Limiter(object):
                     )
                 else:
                     six.reraise(*sys.exc_info())
+
+    @staticmethod
+    def __teardown_request(_):
+        for request_variable in (
+            "_rate_limiting_complete",
+            "view_rate_limits",
+            "conditional_deductions"
+        ):
+            g.pop(request_variable, None)
 
     def __limit_decorator(
         self,
